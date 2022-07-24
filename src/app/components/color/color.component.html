@@ -1,14 +1,3 @@
-<table class="table">
-  <thead>
-      <tr>
-          <th>Id</th>
-          <th>Renk</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr *ngFor="let color of colors">
-          <td>{{color.colorId}}</td>
-          <td>{{color.colorName}}</td>
-      </tr>
-  </tbody>
-</table> 
+<ul class="list-group">
+    <li *ngFor="let color of colors" class="list-group-item">{{color.colorName}}</li>
+</ul>

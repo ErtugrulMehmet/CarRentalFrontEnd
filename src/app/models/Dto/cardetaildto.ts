@@ -1,11 +1,11 @@
 export interface CarDetailDto{
-    CarId: number,
-    BrandId: number,
-    ColorId: number,
-    ImagePath:string[];
-    CarName: string,
-    BrandName: string,
-    ColorName: string,
-    ModelYear:string,
-    DailyPrice:number
+    carId: number,
+    brandId: number,
+    colorId: number,
+    imagePath:string[];
+    carName: string,
+    brandName: string,
+    colorName: string,
+    modelYear:number,
+    dailyPrice:number
 }
