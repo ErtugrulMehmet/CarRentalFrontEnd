@@ -1,20 +1,14 @@
-<table class="table">
-    <thead>
-        <tr>
-            <th>Arac Adı</th>
-            <th>Marka</th>
-            <th>Renk</th>
-            <th>Günlük Fiyat</th>
-            <th>Model Yılı</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let carDetail of carDetails">
-            <td>{{carDetail.carName}}</td>
-            <td>{{carDetail.brandName}}</td>
-            <td>{{carDetail.colorName}}</td>
-            <td>{{carDetail.dailyPrice}}</td>
-            <td>{{carDetail.modelYear}}</td>
-        </tr>
-    </tbody>
-  </table> 
+<div  class="row d-flex pt-5 ps-5">
+  <div 
+    class="card col-3 m-1 me-5 bg-dark p-1"
+    *ngFor="let carDetailDto of carDetails"   
+  >
+    <img src="https://localhost:7228/uploads/images/{{carDetailDto.imagePath}}" class="card-img-top" alt="...">
+    <div class="card-body d-flex flex-column align-items-center">
+      <h5 class="card-title text-center app__card-title text-light">{{carDetailDto.brandName}}  {{carDetailDto.description}}</h5>
+      <p class="card-text text-center text-light">{{carDetailDto.modelYear}}</p>
+      <p class="card-text text-center app__card-price text-light">${{carDetailDto.dailyPrice}}</p>
+      <a routerLink="/car/{{carDetailDto.carId}}" class="btn btn-secondary"  >View More</a>
+    </div>
+  </div>
+</div>

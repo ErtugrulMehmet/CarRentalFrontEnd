@@ -14,6 +14,7 @@ export class BrandComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBrands();
+    
   }
 
   getBrands() {
@@ -27,9 +28,9 @@ export class BrandComponent implements OnInit {
 
   getCurrentBrandClass(brand: Brand) {
     if (brand == this.currentBrand) {
-      return 'list-group-item active';
+      return 'list-group-item list-group-item-action active';
     } else {
-      return 'list-group-item';
+      return 'list-group-item list-group-item-action';
     }
   }
 }

@@ -1,24 +1,153 @@
-<div *ngIf="dataLoaded==false" class="spinner-border text-dark" role="status">
-    <span class="visually-hidden">Loading...</span>
+<div class="row mb-3">
+  <div class="col-md-4">
+    <select
+      [(ngModel)]="brandFilter"
+      class="form-select"
+      aria-label="Default select example"
+    >
+      <option value="0">Marka Seçiniz</option>
+      <option
+        *ngFor="let brand of brands"
+        [value]="brand.brandId"
+        [selected]="getSelectedBrand(brand.brandId)"
+      >
+        {{ brand.brandName }}
+      </option>
+    </select>
   </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Araç Numarası</th>
-            <th>Marka</th>
-            <th>Renk</th>
-            <th>Kiralama Fİyatı</th>
-            <th>Tanım</th>
-            <th>Model Yılı</th>
-        </tr>
-    </thead>
-    <tr *ngFor="let car of cars">
-        <td>{{car.carId}}</td>
-        <td>{{car.brandId}}</td>
-        <td>{{car.colorId}}</td>
-        <td>{{car.dailyPrice}}</td>
-        <td>{{car.description}}</td>
-        <td>{{car.modelYear}}</td>
 
-    </tr>
-</table>
+  <div class="col-md-4">
+    <select
+      [(ngModel)]="colorFilter"
+      class="form-select"
+      aria-label="Default select example"
+    >
+      <option value="0">Renk Seçiniz</option>
+      <option
+        *ngFor="let color of colors"
+        [value]="color.colorId"
+        [selected]="getSelectedColor(color.colorId)"
+      >
+        {{ color.colorName }}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <button
+      routerLink="/cars/color/{{ colorFilter }}/brand/{{ brandFilter }}"
+      class="btn btn-primary"
+      type="button"
+    >
+      Filtrele
+    </button>
+  </div>
+</div>
+
+<div class="mb-3">
+  <label for="carFilter" class="form-label">Modele Göre Ara</label>
+  <input
+    type="text"
+    [(ngModel)]="carFilter"
+    class="form-control"
+    id="carFilter"
+    placeholder="Arama ifadesi giriniz."
+  />
+</div>
+<div *ngIf="carFilter.length > 2" class="alert alert-primary">
+  {{ carFilter }} araçlar listelendi.
+</div>
+
+<div class="mb-3">
+  <label for="colorFilter" class="form-label">Renge Göre Ara</label>
+  <input
+    type="text"
+    [(ngModel)]="colorFilter"
+    class="form-control"
+    id="colorFilter"
+    placeholder="Arama ifadesi giriniz."
+  />
+</div>
+<div *ngIf="colorFilter.length > 1" class="alert alert-primary">
+  {{ colorFilter }} renk araçlar listelendi.
+</div>
+
+<div class="mb-3">
+  <label for="brandFilter" class="form-label">Markaya Göre Ara</label>
+  <input
+    type="text"
+    [(ngModel)]="brandFilter"
+    class="form-control"
+    id="brandFilter"
+    placeholder="Arama ifadesi giriniz."
+  />
+</div>
+<div *ngIf="brandFilter.length > 1" class="alert alert-primary">
+  {{ brandFilter }} marka araçlar listelendi.
+</div>
+
+<div class="row">
+  <div
+    class="col-lg-4 col-md-6 shadow-lg p-3 mb-5 bg-body rounded"
+    *ngFor="
+      let car of carsByDetail
+        | carfilter: carFilter
+        | colorfilter: colorFilter
+        | brandfilter: brandFilter
+    "
+  >
+    <div class="card border-0 mb-3" style="width: 19rem">
+      <div class="card-body text-center">
+        <div>
+          <img  class="car-image" src="https://localhost:7228/uploads/images/{{car.imagePath}}" height="130" alt="..." style="object-fit: cover;">
+        </div>
+        <h4>
+          <a
+            routerLink="/cars/cardetail/{{ car.carId }}"
+            class="card-title text-decoration-none h5"
+            style="color: #007bff"
+            >{{ car.brandName }}
+          </a>
+        </h4>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <span class="float-start">Marka</span>
+          <span class="float-end">{{ car.description }}</span>
+        </li>
+        <li class="list-group-item">
+          <span class="float-start">Renk</span>
+          <span class="float-end">{{ car.colorName }}</span>
+        </li>
+        <li class="list-group-item">
+          <span class="float-start">Model</span>
+          <span class="float-end">{{ car.modelYear }}</span>
+        </li>
+        <li class="list-group-item">
+          <span class="float-start">Açıklama</span>
+          <span class="float-end">{{ car.description }}</span>
+        </li>
+        <p class="card-text text-center h3 mt-3">{{ car.dailyPrice }}₺</p>
+      </ul>
+      <div class="card-body">
+        <div class="d-flex action justify-content-between">
+          <button
+            type="button"
+            (click)="addToCart(car)"
+            class="btn btn-success"
+          >
+            Kirala
+          </button>
+          <button
+            type="button"
+            (click)="setCurrentCarDetail(car)"
+            routerLink="/cars/cardetail/{{ car.carId }}"
+            class="btn btn-primary"
+          >
+            Ayrıntılar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

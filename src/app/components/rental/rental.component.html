@@ -1,16 +1,39 @@
-<table class="table">
-    <thead >
-        <tr>
-            <th>Araç Adı</th>
-            <th>Müşteri Adı</th>
-            <th>Kira Tarihi</th>
-            <th>Dönüş Tarihi</th>
-        </tr>
+<table class="table table-hover table-striped table-bordered mt-3 text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>Id</th>
+        <th>CarId</th>
+        <th>CustomerId</th>
+        <th>RentDate</th>
+        <th>ReturnDate</th>
+      </tr>
     </thead>
-    <tr *ngFor="let rentalDetail of rentalDetails">
-        <td>{{rentalDetail.brandName}}</td>
-        <td>{{rentalDetail.firstName}} {{rentalDetail.lastName}}</td>
-        <td>{{rentalDetail.rentDate}}</td>
-        <td>{{rentalDetail.returnDate}}</td>
-    </tr>
-</table>
+    <tbody>
+      <tr *ngFor="let rental of rentals">
+        <td>{{ rental.rentalId }}</td>
+        <td>{{ rental.carId }}</td>
+        <td>{{ rental.customerId }}</td>
+        <td>{{ rental.rentDate }}</td>
+        <td>{{ rental.returnDate }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <table class="table table-hover table-striped table-bordered mt-3 text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>BrandName</th>
+        <th>FullName</th>
+        <th>RentDate</th>
+        <th>ReturnDate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rental of rentalsByDetail">
+        <td>{{ rental.brandName }}</td>
+        <td>{{ rental.fullName }}</td>
+        <td>{{ rental.rentDate }}</td>
+        <td>{{ rental.returnDate }}</td>
+      </tr>
+    </tbody>
+  </table>
